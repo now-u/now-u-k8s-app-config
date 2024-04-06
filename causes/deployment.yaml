@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: microbot-deployment
+spec:
+  selector:
+    matchLabels:
+      app: microbot
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: microbot
+    spec:
+      containers:
+      - name: microbot
+        image: cdkbot/microbot:1
+        ports:
+        - containerPort: 80
+          name: http-web-svc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: microbot
+  labels:
+    app: microbot
+spec:
+  ports:
+  - name: microbot-svc-port
+    protocol: TCP
+    port: 80
+    targetPort: http-web-svc
+  selector:
+    app: microbot
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: microbot-example-ingress
+  annotations:
+     cert-manager.io/cluster-issuer: lets-encrypt
+spec:
+  tls:
+  - hosts:
+    - microbot.example.now-u.com
+    secretName: microbot-example-ingress-tls
+  rules:
+  - host: microbot.example.now-u.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: microbot
+            port:
+              number: 8080
