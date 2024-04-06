@@ -1,58 +1,58 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: microbot-deployment
+  name: now-u-causes
 spec:
   selector:
     matchLabels:
-      app: microbot
-  replicas: 2 # tells deployment to run 2 pods matching the template
+      app: now-u-causes
+  replicas: 2
   template:
     metadata:
       labels:
-        app: microbot
+        app: now-u-causes
     spec:
       containers:
-      - name: microbot
-        image: cdkbot/microbot:1
+      - name: now-u-backend
+        image: ghcr.io/now-u/now-u-backend:sha-b0370f7
         ports:
-        - containerPort: 80
-          name: http-web-svc
+        - containerPort: 5000
+          name: http-svc
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: microbot
+  name: now-u-causes
   labels:
-    app: microbot
+    app: now-u-causes
 spec:
   ports:
-  - name: microbot-svc-port
+  - name: now-u-causes-svc-port
     protocol: TCP
     port: 80
-    targetPort: http-web-svc
+    targetPort: http-svc
   selector:
-    app: microbot
+    app: now-u-causes
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: microbot-example-ingress
+  name: now-u-causes-ingress
   annotations:
      cert-manager.io/cluster-issuer: lets-encrypt
 spec:
   tls:
   - hosts:
-    - microbot.example.now-u.com
-    secretName: microbot-example-ingress-tls
+    - causes.dev.now-u.com
+    secretName: now-u-causes-ingress-tls
   rules:
-  - host: microbot.example.now-u.com
+  - host: causes.dev.now-u.com
     http:
       paths:
       - path: /
         pathType: Prefix
         backend:
           service:
-            name: microbot
+            name: now-u-causes
             port:
               number: 8080
