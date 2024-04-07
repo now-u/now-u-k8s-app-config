@@ -15,6 +15,71 @@ spec:
       containers:
       - name: now-u-backend
         image: ghcr.io/now-u/now-u-backend:sha-b0370f7
+        env:
+        - name: BASE_URL
+          value: https://causes.dev.now-u.com
+
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: django-env
+              key: jwt-secret
+
+        - name: DJANGO_SUPERUSER_EMAIL
+          valueFrom:
+            secretKeyRef:
+              name: django-env
+              key: superuser-email
+        - name: DJANGO_SUPERUSER_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: django-env
+              key: superuser-password
+
+        - name: STATIC_FILES_STORAGE_CONTAINER
+          value: cs-static-storage
+        - name: STATIC_FILES_STORAGE_ACCOUNT_NAME
+          value: csstatic71effcce
+        - name: STATIC_FILES_STORAGE_ACCOUNT_KEY
+          valueFrom:
+            secretKeyRef:
+              name: static-files-secrets
+              key: account-key
+
+        - name: DATABASE_NAME
+          value: causes
+        - name: DATABASE_HOST
+          valueFrom:
+            secretKeyRef:
+              name: db-secrets
+              key: db-host
+        - name: DATABASE_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-secrets
+              key: db-user
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secrets
+              key: db-password
+        - name: DATABASE_PORT
+          value: "5432"
+
+        - name: MAILCHIMP_LIST_ID
+          value: b604a851dc
+        - name: MAILCHIMP_SERVER
+          value: us4
+        - name: MAILCHIMP_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: mailchimp-secrets
+              key: api-key
+        - name: MEILISEARCH_URL
+          value: TODO
+        - name: MEILISEARCH_MASTER_KEY
+          value: TODO
+
         ports:
         - containerPort: 5000
           name: http-svc
@@ -55,4 +120,4 @@ spec:
           service:
             name: now-u-causes
             port:
-              number: 8080
+              number: 80
