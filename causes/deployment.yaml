@@ -47,24 +47,30 @@ spec:
               key: account-key
 
         - name: DATABASE_NAME
-          value: causes
+          valueFrom:
+            secretKeyRef:
+              name: now-u-causes-db-app
+              key: dbname
         - name: DATABASE_HOST
           valueFrom:
             secretKeyRef:
-              name: db-secrets
-              key: db-host
+              name: now-u-causes-db-app
+              key: host
         - name: DATABASE_USER
           valueFrom:
             secretKeyRef:
-              name: db-secrets
-              key: db-user
+              name: now-u-causes-db-app
+              key: user
         - name: DATABASE_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: db-secrets
-              key: db-password
+              name: now-u-causes-db-app
+              key: password
         - name: DATABASE_PORT
-          value: "5432"
+          valueFrom:
+            secretKeyRef:
+              name: now-u-causes-db-app
+              key: port
 
         - name: MAILCHIMP_LIST_ID
           value: b604a851dc
