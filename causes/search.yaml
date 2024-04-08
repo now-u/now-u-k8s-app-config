@@ -24,7 +24,7 @@ metadata:
     app.kubernetes.io/component: search-engine
     app.kubernetes.io/part-of: meilisearch
 data:
-  MEILI_ENV: "development"
+  MEILI_ENV: "production"
   MEILI_NO_ANALYTICS: "true"
 ---
 # Source: meilisearch/templates/service.yaml

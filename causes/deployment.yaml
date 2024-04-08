@@ -82,7 +82,7 @@ spec:
               name: mailchimp-secrets
               key: api-key
         - name: MEILISEARCH_URL
-          value: TODO
+          value: "meilisearch.now-u.svc.cluster.local" 
         - name: MEILISEARCH_MASTER_KEY
           value: TODO
 
