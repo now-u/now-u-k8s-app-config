@@ -1,3 +1,4 @@
+# Source: https://github.com/meilisearch/meilisearch-kubernetes/blob/ac3707bb60e570e28cdff132d5587ef7cf16b482/manifests/meilisearch.yaml#L1
 ---
 # Source: meilisearch/templates/serviceaccount.yaml
 apiVersion: v1
