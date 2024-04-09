@@ -84,7 +84,10 @@ spec:
         - name: MEILISEARCH_URL
           value: "meilisearch.now-u.svc.cluster.local" 
         - name: MEILISEARCH_MASTER_KEY
-          value: TODO
+          valueFrom:
+            secretKeyRef:
+              name: meilisearch-secrets
+              key: MEILI_MASTER_KEY
 
         ports:
         - containerPort: 5000
