@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adminer
+  labels:
+    app: adminer
+spec:
+  selector:
+    matchLabels:
+      app: adminer
+  template:
+    metadata:
+      labels:
+        app: adminer
+    spec:
+      containers:
+      - name: adminer
+        image: adminer:4.8.1
+        ports:
+        - containerPort: 8080
+          name: http-svc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: adminer
+  labels:
+    app: adminer
+spec:
+  ports:
+  - name: adminer-svc-port
+    protocol: TCP
+    port: 80
+    targetPort: http-svc
+  selector:
+    app: adminer
