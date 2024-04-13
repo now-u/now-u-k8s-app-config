@@ -7,10 +7,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - search.dev.now-u.com
+    - search.dev.apiv2.now-u.com
     secretName: now-u-search-ingress-tls
   rules:
-  - host: search.dev.now-u.com
+  - host: search.dev.apiv2.now-u.com
     http:
       paths:
       - path: /

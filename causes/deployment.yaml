@@ -16,8 +16,11 @@ spec:
       - name: now-u-backend
         image: ghcr.io/now-u/now-u-backend:sha-b0370f7
         env:
+        - name: DEBUG
+          value: 'false'
+
         - name: BASE_URL
-          value: https://causes.dev.now-u.com
+          value: https://causes.dev.apiv2.now-u.com
 
         - name: JWT_SECRET
           valueFrom:
@@ -117,10 +120,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - causes.dev.now-u.com
+    - causes.dev.apiv2.now-u.com
     secretName: now-u-causes-ingress-tls
   rules:
-  - host: causes.dev.now-u.com
+  - host: causes.dev.apiv2.now-u.com
     http:
       paths:
       - path: /
