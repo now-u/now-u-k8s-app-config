@@ -16,6 +16,8 @@ spec:
           existingMasterKeySecret: meilisearch-secrets
         persistence:
           enabled: true
+          storageClass: microk8s-hostpath
+
   destination:
     server: "https://kubernetes.default.svc"
     namespace: now-u
