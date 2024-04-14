@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/now-u/now-u-k8s-app-config.git
     targetRevision: HEAD
-    path: causes
+    path: now-u/overlays/prod
   destination:
     server: https://kubernetes.default.svc
     namespace: now-u

@@ -12,9 +12,9 @@ spec:
       labels:
         app: now-u-causes
     spec:
-      containers:
+      containers: &now-u-backend-container
       - name: now-u-backend
-        image: ghcr.io/now-u/now-u-backend:sha-b0370f7
+        image: ghcr.io/now-u/now-u-backend
         env:
         - name: DEBUG
           value: 'false'
@@ -133,3 +133,22 @@ spec:
             name: now-u-causes
             port:
               number: 80
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: now-u-causes-search-sync
+spec:
+  schedule: "5 4 * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: now-u-causes-search-sync
+        spec:
+          containers:
+            <<: *now-u-backend-container
+            command: |
+              ./manage.py populateMeilisearchIndex
+            restartPolicy: OnFailure

@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+metadata:
+  name: now-u
+resources:
+  - adminer.yaml
+  - db.yaml
+  - deployment.yaml
+  - sealed-causes-db-backup-azure-secrets.yaml
+  - sealed-django-secrets.yaml
+  - sealed-django-static-files-secret.yaml
+  - sealed-mailchimp-secrets.yaml
+  - sealed-meilisearch-secrets.yaml
+  - search-ingress.yaml
+  - search.yaml

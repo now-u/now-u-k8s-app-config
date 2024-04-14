@@ -1,0 +1,6 @@
+namespace: now-u-prod
+images:
+  - name: ghcr.io/now-u/now-u-backend
+    newTag: sha-b0370f7
+resources:
+  - ../../base
