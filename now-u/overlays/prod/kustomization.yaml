@@ -4,3 +4,12 @@ images:
     newTag: sha-b0370f7
 resources:
   - ../../base
+transformers:
+  - |-
+    apiVersion: builtin
+    kind: PatchTransformer
+    metadata:
+      name: fix-argo-app-namespace
+    patch: '[{"op": "replace", "path": "/metadata/namespace", "value": "argocd"}, {"op": "replace", "path": "/spec/destination/namespace", "value": "now-u-prod"}]'
+    target:
+      kind: Application
