@@ -1,0 +1,3 @@
+kustomize:
+  images:
+  - ghcr.io/now-u/now-u-backend:sha-e45a16e
