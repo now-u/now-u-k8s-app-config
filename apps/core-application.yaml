@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: apps
+  name: core
   namespace: argocd
 spec:
   project: default
@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/now-u/now-u-k8s-app-config.git
     targetRevision: HEAD
-    path: apps
+    path: core
   destination:
     server: https://kubernetes.default.svc
     namespace: default
@@ -21,3 +21,4 @@ spec:
     automated:
       selfHeal: true
       prune: true
+

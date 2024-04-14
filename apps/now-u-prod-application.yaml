@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: apps
+  name: now-u-prod
   namespace: argocd
 spec:
   project: default
@@ -9,10 +9,10 @@ spec:
   source:
     repoURL: https://github.com/now-u/now-u-k8s-app-config.git
     targetRevision: HEAD
-    path: apps
+    path: now-u/overlays/prod
   destination:
     server: https://kubernetes.default.svc
-    namespace: default
+    namespace: now-u-prod 
 
   syncPolicy:
     syncOptions:

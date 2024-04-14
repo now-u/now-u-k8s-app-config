@@ -20,7 +20,7 @@ spec:
 
   destination:
     server: "https://kubernetes.default.svc"
-    namespace: now-u
+    namespace: now-u-prod
 
   syncPolicy:
     syncOptions:

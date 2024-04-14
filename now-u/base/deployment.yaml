@@ -12,7 +12,7 @@ spec:
       labels:
         app: now-u-causes
     spec:
-      containers: &now-u-backend-container
+      containers:
       - name: now-u-backend
         image: ghcr.io/now-u/now-u-backend
         env:
@@ -85,7 +85,7 @@ spec:
               name: mailchimp-secrets
               key: api-key
         - name: MEILISEARCH_URL
-          value: "http://meilisearch.now-u.svc.cluster.local:7700"
+          value: "http://meilisearch.now-u-prod.svc.cluster.local:7700"
         - name: MEILISEARCH_MASTER_KEY
           valueFrom:
             secretKeyRef:
@@ -133,22 +133,3 @@ spec:
             name: now-u-causes
             port:
               number: 80
----
-apiVersion: batch/v1
-kind: CronJob
-metadata:
-  name: now-u-causes-search-sync
-spec:
-  schedule: "5 4 * * *"
-  jobTemplate:
-    spec:
-      template:
-        metadata:
-          labels:
-            app: now-u-causes-search-sync
-        spec:
-          containers:
-            <<: *now-u-backend-container
-            command: |
-              ./manage.py populateMeilisearchIndex
-            restartPolicy: OnFailure

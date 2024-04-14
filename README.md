@@ -3,12 +3,16 @@
 k8s setup
 
 ```
-microk8s enable dns hostpath-storage registry prometheus metrics-server ingress dashboard cert-manager metallb community cloudnative-pg storage
+microk8s enable dns hostpath-storage registry observability metrics-server ingress dashboard cert-manager metallb community cloudnative-pg
+
+microk8s enable metallb:172.187.88.151-172.187.88.151
 ```
+
+
 
 Note the ip range for metallb should be the ip of the server
 
-Install argo: https://argo-cd.readthedocs.io/en/stable/operator-manual/installation/
+Install argo: https://argo-cd.readthedocs.io/en/stable/getting_started/#1-install-argo-cd
 And apply `application.yaml`
 
 Install sealed secrets
@@ -50,6 +54,14 @@ kubectl get secrets -n observability kube-prom-stack-grafana -o jsonpath="{.data
 Then update kubeconfig with external ip and:
 https://stackoverflow.com/a/63470856/13473952
 scp
+
+```
+clusters:
+- cluster:
+    server: https://172.187.88.151:16443
+    insecure-skip-tls-verify: true
+  name: microk8s-cluster
+```
 
 ## TODO
 
