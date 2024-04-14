@@ -23,6 +23,13 @@ helm repo add sealed-secrets https://bitnami-labs.github.io/sealed-secrets
 helm install sealed-secrets -n kube-system --set-string fullnameOverride=sealed-secrets-controller sealed-secrets/sealed-secrets
 ```
 
+Install image updater
+```
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj-labs/argocd-image-updater/stable/manifests/install.yaml
+kubectl -n argocd-image-updater create secret generic git-creds \
+  --from-file=sshPrivateKey=./raw-secrets/deploy_key_ed25519
+```
+
 ## Create a secret
 
 https://github.com/bitnami-labs/sealed-secrets?tab=readme-ov-file#usage

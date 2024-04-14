@@ -3,6 +3,11 @@ kind: Application
 metadata:
   name: now-u-prod
   namespace: argocd
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: ghcr.io/now-u/now-u-backend
+    argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-creds
+    argocd-image-updater.argoproj.io/update-strategy: latest
+    argocd-image-updater.argoproj.io/git-branch: main
 spec:
   project: default
 
@@ -12,7 +17,7 @@ spec:
     path: now-u/overlays/prod
   destination:
     server: https://kubernetes.default.svc
-    namespace: now-u-prod 
+    namespace: now-u-prod
 
   syncPolicy:
     syncOptions:
