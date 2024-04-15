@@ -92,6 +92,17 @@ spec:
               name: meilisearch-secrets
               key: MEILI_MASTER_KEY
 
+        - name: SUPABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: supabase-secrets
+              key: url
+        - name: SUPABASE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: supabase-secrets
+              key: key
+
         ports:
         - containerPort: 5000
           name: http-svc
