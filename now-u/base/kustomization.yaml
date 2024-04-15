@@ -11,5 +11,6 @@ resources:
   - sealed-django-static-files-secret.yaml
   - sealed-mailchimp-secrets.yaml
   - sealed-meilisearch-secrets.yaml
+  - sealed-supabase-secrets.yaml
   - search-ingress.yaml
   - search.yaml
