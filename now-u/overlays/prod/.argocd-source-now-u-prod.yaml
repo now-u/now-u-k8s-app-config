@@ -1,3 +1,3 @@
 kustomize:
   images:
-  - ghcr.io/now-u/now-u-backend:sha-f1f8f5c
+  - ghcr.io/now-u/now-u-backend:sha-d3f5bd7
