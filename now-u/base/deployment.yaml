@@ -144,3 +144,113 @@ spec:
             name: now-u-causes
             port:
               number: 80
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: now-u-causes-search-sync
+spec:
+  # 4am every day
+  schedule: "0 4 * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: now-u-causes-search-sync
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: now-u-backend
+              image: ghcr.io/now-u/now-u-backend
+              command:
+                - ./manage.py populateMeilisearchIndex
+              # TODO We shouldn't be copying this container spec
+              env:
+              - name: DEBUG
+                value: 'false'
+
+              - name: BASE_URL
+                value: https://causes.dev.apiv2.now-u.com
+
+              - name: JWT_SECRET
+                valueFrom:
+                  secretKeyRef:
+                    name: django-env
+                    key: jwt-secret
+
+              - name: DJANGO_SUPERUSER_EMAIL
+                valueFrom:
+                  secretKeyRef:
+                    name: django-env
+                    key: superuser-email
+              - name: DJANGO_SUPERUSER_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: django-env
+                    key: superuser-password
+
+              - name: STATIC_FILES_STORAGE_CONTAINER
+                value: cs-static-storage
+              - name: STATIC_FILES_STORAGE_ACCOUNT_NAME
+                value: csstatic71effcce
+              - name: STATIC_FILES_STORAGE_ACCOUNT_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: static-files-secrets
+                    key: account-key
+
+              - name: DATABASE_NAME
+                valueFrom:
+                  secretKeyRef:
+                    name: now-u-causes-db-app
+                    key: dbname
+              - name: DATABASE_HOST
+                valueFrom:
+                  secretKeyRef:
+                    name: now-u-causes-db-app
+                    key: host
+              - name: DATABASE_USER
+                valueFrom:
+                  secretKeyRef:
+                    name: now-u-causes-db-app
+                    key: user
+              - name: DATABASE_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: now-u-causes-db-app
+                    key: password
+              - name: DATABASE_PORT
+                valueFrom:
+                  secretKeyRef:
+                    name: now-u-causes-db-app
+                    key: port
+
+              - name: MAILCHIMP_LIST_ID
+                value: b604a851dc
+              - name: MAILCHIMP_SERVER
+                value: us4
+              - name: MAILCHIMP_API_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: mailchimp-secrets
+                    key: api-key
+              - name: MEILISEARCH_URL
+                value: "http://meilisearch.now-u-prod.svc.cluster.local:7700"
+              - name: MEILISEARCH_MASTER_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: meilisearch-secrets
+                    key: MEILI_MASTER_KEY
+
+              - name: SUPABASE_URL
+                valueFrom:
+                  secretKeyRef:
+                    name: supabase-secrets
+                    key: url
+              - name: SUPABASE_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: supabase-secrets
+                    key: key
+
