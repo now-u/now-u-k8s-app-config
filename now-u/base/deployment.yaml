@@ -164,7 +164,9 @@ spec:
             - name: now-u-backend
               image: ghcr.io/now-u/now-u-backend
               command:
-                - ./manage.py populateMeilisearchIndex
+                - /bin/sh
+                - -c
+                - date; echo Starting sync && ./manage.py populateMeilisearchIndex && echo Sync Complete
               # TODO We shouldn't be copying this container spec
               env:
               - name: DEBUG
