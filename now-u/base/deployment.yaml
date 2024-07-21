@@ -48,6 +48,8 @@ spec:
             secretKeyRef:
               name: static-files-secrets
               key: account-key
+        - name: STATIC_FILES_STORAGE_DOMAIN
+          value: csstatic.azureedge.net
 
         - name: DATABASE_NAME
           valueFrom:
@@ -201,6 +203,8 @@ spec:
                   secretKeyRef:
                     name: static-files-secrets
                     key: account-key
+              - name: STATIC_FILES_STORAGE_DOMAIN
+                value: csstatic.azureedge.net
 
               - name: DATABASE_NAME
                 valueFrom:
