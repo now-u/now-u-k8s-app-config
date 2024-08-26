@@ -14,3 +14,6 @@ resources:
   - sealed-supabase-secrets.yaml
   - search-ingress.yaml
   - search.yaml
+  - app-links/db.yaml
+  - app-links/deployment.yaml
+  - app-links/sealed-app-links-secrets.yaml
