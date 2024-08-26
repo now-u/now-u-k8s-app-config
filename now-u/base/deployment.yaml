@@ -105,6 +105,14 @@ spec:
               name: supabase-secrets
               key: key
 
+        - name: APP_LINKS_SERVICE_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: app-links-secrets
+              key: api-key
+        - name: APP_LINKS_SERVICE_URL
+          value: "http://now-u-app-links.now-u-prod.svc.cluster.local:80"
+
         ports:
         - containerPort: 5000
           name: http-svc
@@ -259,4 +267,13 @@ spec:
                   secretKeyRef:
                     name: supabase-secrets
                     key: key
+
+              - name: APP_LINKS_SERVICE_API_KEY
+                valueFrom:
+                  secretKeyRef:
+                    name: app-links-secrets
+                    key: api-key
+              - name: APP_LINKS_SERVICE_URL
+                value: "http://now-u-app-links.now-u-prod.svc.cluster.local:80"
+
 
