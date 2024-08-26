@@ -2,6 +2,8 @@ namespace: now-u-prod
 images:
   - name: ghcr.io/now-u/now-u-backend
     newTag: sha-b0370f7
+  - name: ghcr.io/now-u/now-u-app-links
+    newTag: sha-d714ca1
 resources:
   - ../../base
 transformers:

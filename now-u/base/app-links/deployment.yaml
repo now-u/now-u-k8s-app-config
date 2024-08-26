@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: now-u-app-links
+spec:
+  selector:
+    matchLabels:
+      app: now-u-app-links
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: now-u-app-links
+    spec:
+      containers:
+      - name: now-u-app-links
+        image: ghcr.io/now-u/now-u-app-links
+        env:
+        - name: BASE_URL
+          value: https://links.now-u.com
+
+        - name: WEB_FALLBACK_URL
+          value: https://now-u.com
+
+        - name: IOS_FALLBACK_URL
+          value: https://apps.apple.com/us/app/now-u/id1516126639
+
+        - name: ANDROID_FALLBACK_URL
+          value: https://play.google.com/store/apps/details?id=com.nowu.app
+
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: app-links-secrets
+              key: api-key
+
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: app-links-db-app
+              key: uri
+
+        ports:
+        - containerPort: 9090
+          name: http-svc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: now-u-app-links
+  labels:
+    app: now-u-app-links
+spec:
+  ports:
+  - name: now-u-app-links-svc-port
+    protocol: TCP
+    port: 80
+    targetPort: http-svc
+  selector:
+    app: now-u-app-links
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: now-u-app-links-ingress
+  annotations:
+     cert-manager.io/cluster-issuer: lets-encrypt
+spec:
+  tls:
+  - hosts:
+    - links.now-u.com
+    secretName: now-u-app-links-ingress-tls
+  rules:
+  - host: links.now-u.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: now-u-app-links
+            port:
+              number: 80
