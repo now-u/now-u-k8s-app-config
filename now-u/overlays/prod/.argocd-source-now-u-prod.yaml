@@ -1,4 +1,4 @@
 kustomize:
   images:
-  - ghcr.io/now-u/now-u-backend:sha-0b0cff4
+  - ghcr.io/now-u/now-u-backend:sha-3e8f934
   - ghcr.io/now-u/now-u-app-links:sha-e46ffd8
