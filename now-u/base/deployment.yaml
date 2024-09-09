@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       app: now-u-causes
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -17,9 +17,9 @@ spec:
         image: ghcr.io/now-u/now-u-backend
         resources:
           requests:
-            ephemeral-storage: "2Gi"
+            ephemeral-storage: "1Gi"
           limits:
-            ephemeral-storage: "4Gi"
+            ephemeral-storage: "2Gi"
         env:
         - name: DEBUG
           value: 'false'
