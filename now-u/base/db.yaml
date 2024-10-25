@@ -10,3 +10,14 @@ spec:
 
   monitoring:
     enablePodMonitor: true
+
+  backup:
+    barmanObjectStore:
+      destinationPath: "https://causesdbbackup.blob.core.windows.net/causesdbbackup/"
+      azureCredentials:
+        storageAccount:
+          name: causes-db-backup-azure-secrets
+          key: storage-account
+        storageKey:
+          name: causes-db-backup-azure-secrets
+          key: storage-key
