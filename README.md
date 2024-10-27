@@ -3,8 +3,9 @@
 k8s setup
 
 ```
-microk8s enable dns hostpath-storage registry observability metrics-server ingress dashboard cert-manager metallb community cloudnative-pg
-
+microk8s enable dns hostpath-storage
+microk8s.enable registry:size=15Gi
+microk8s enable observability metrics-server ingress dashboard cert-manager metallb community cloudnative-pg
 microk8s enable metallb:172.187.88.151-172.187.88.151
 ```
 
