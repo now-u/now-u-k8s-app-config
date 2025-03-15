@@ -3,10 +3,10 @@ kind: Cluster
 metadata:
   name: app-links-db
 spec:
-  instances: 3
+  instances: 1
 
   storage:
-    size: 1Gi
+    size: 500Mi
 
   monitoring:
     enablePodMonitor: true
