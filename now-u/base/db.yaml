@@ -3,7 +3,7 @@ kind: Cluster
 metadata:
   name: now-u-causes-db
 spec:
-  instances: 2
+  instances: 1
 
   storage:
     size: 1Gi
